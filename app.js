@@ -28,16 +28,31 @@ function renderCafeList(cafe) {
   });
 }
 // Getting data
+// db.collection("cafes")
+//   .get()
+//   .then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//       // doc.data() is never undefined for query doc snapshots
+//       //   console.log(doc.data());
+//       renderCafeList(doc);
+//     });
+//   });
+
+// Real time listener
 db.collection("cafes")
-  .get()
-  .then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      //   console.log(doc.data());
-      renderCafeList(doc);
+  .orderBy("city")
+  .onSnapshot((snapshot) => {
+    let changes = snapshot.docChanges();
+    // console.log(changes);
+    changes.forEach((change) => {
+      if (change.type === "added") {
+        renderCafeList(change.doc);
+      } else if (change.type === "removed") {
+        let li = cafeList.querySelector(`[data-id=${change.doc.id}]`);
+        cafeList.removeChild(li);
+      }
     });
   });
-
 //  Saving data
 form.addEventListener("submit", (e) => {
   e.preventDefault();
