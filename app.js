@@ -7,15 +7,25 @@ function renderCafeList(cafe) {
   let li = document.createElement("li");
   let name = document.createElement("span");
   let city = document.createElement("span");
+  let cross = document.createElement("div");
   //   Setting attributes
   li.setAttribute("data-id", cafe.id);
   //   Updating contents
   name.textContent = cafe.data().name;
   city.textContent = cafe.data().city;
+  cross.textContent = "x";
   //   appending the elements
   li.appendChild(name);
   li.appendChild(city);
+  li.appendChild(cross);
   cafeList.appendChild(li);
+
+  //   Deleting data
+  cross.addEventListener("click", (e) => {
+    e.stopPropagation();
+    let id = e.target.parentElement.getAttribute("data-id");
+    db.collection("cafes").doc(id).delete();
+  });
 }
 // Getting data
 db.collection("cafes")
