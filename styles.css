@@ -35,10 +35,6 @@ li {
   height: 46px;
 }
 
-li:nth-child(1) {
-  border-top-right-radius: 120px;
-}
-
 li:nth-child(even) {
   padding: 20px;
   background: #f2f2f2;
@@ -56,14 +52,18 @@ li span:nth-child(2) {
 
 li div {
   position: absolute;
-  top: 0;
-  right: 0px;
+  top: 25%;
+  right: 1em;
   background: rgba(255, 255, 255, 0.6);
   width: 40px;
   text-align: center;
   padding: 10px 0;
   font-weight: bold;
   cursor: pointer;
+}
+
+li div:hover {
+  background: rgb(255, 106, 106);
 }
 
 form input {
@@ -102,5 +102,5 @@ button {
   font-weight: bold;
   font-family: ubuntu;
   letter-spacing: 1px;
-  color: #999;
+  color: rgba(0, 0, 0, 0.5);
 }
